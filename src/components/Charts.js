@@ -18,7 +18,7 @@ const Charts = () => {
     
       useEffect(() => {
         console.log("Entered chart component")
-        axios.get('http://localhost:8080').then(
+        axios.get('http://3.93.246.151:8080').then(
             response => {
                 setHeapData(response.data)
                 // console.log(heapData)
