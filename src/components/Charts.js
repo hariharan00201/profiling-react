@@ -1,9 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import HighchartsReact from "highcharts-react-official"
 import Highcharts, { color } from "highcharts"
-// import Highcharts from 'highcharts/gantt';
 import HighchartsGantt from 'highcharts/modules/gantt';
-// import HighchartsReact from 'highcharts-react-official';
 import axios from 'axios';
 import GCSummary from './GCSummary';
 import accessibility  from 'highcharts/modules/accessibility'
@@ -16,17 +14,7 @@ accessibility(Highcharts);
 
 const Charts = () => {
 
-  
-  
-  
-  // options1.yAxis.categories = ['Thread 1', 'Thread 2', 'Thread 3'];
-
-
-    // var [data,setData] = useState({});
     const [heapData,setHeapData] = useState('');
-    // const [cpuData,setcpuData] = useState([]);
-    const [options,setOptions]=useState({});
-    const [reservedSizeChartList,setReservedSizeChartList]=useState([]);
 
     function getValues(arr, b, c) {
         return arr.map((obj) => [obj[b], obj[c]]);
@@ -34,18 +22,15 @@ const Charts = () => {
     
       useEffect(() => {
         console.log("Entered chart component")
-        axios.get('http://localhost:8080').then(
+        axios.get('http://3.93.246.151:8080').then(
             response => {
                 setHeapData(response.data)
-                // console.log(heapData)
             }).catch(err => console.log(err));
             
     },[]);
 
     const getOptionsLocal = (arr,b,c,xname,yname) => {
-        // console.log("here",arr)
         var temp = getValues(arr,b,c);
-        // console.log(temp)
         var options = {
             title : {
                 text : c+" vs "+b
@@ -71,10 +56,8 @@ const Charts = () => {
     }
 
     const getOptionsLocal2 = (arr,b,c,d,xname,yname) => {
-        // console.log("here",arr)
         var temp = getValues(arr,b,c);
         var temp1 = getValues(arr,b,d);
-        // console.log(temp)
         var options = {
             title : {
                 text : c+" & "+d+" vs "+b
@@ -110,114 +93,23 @@ const Charts = () => {
       const options1 = {
         chart: {
           type: 'gantt',
-          height: 3000,
-          // width: 1000
+          height: "250%",
         },
         title: {
           text: 'Gantt Chart'
         },
-        
-        // legend: {
-        //   layout: 'vertical',
-        //   align: 'right',
-        //   verticalAlign: 'middle'
-        // },
         xAxis: {
           type: 'datetime'
         },
         yAxis: {
-          // rowHeight: 20,
           uniqueNames: true,
-        //   breaks: [{
-        //     breakSize: 0.5,
-        //     from: 0,
-        //     to: 0,
-        //   },
-        //   {
-        //     breakSize: 0.5,
-        //     from: 1,
-        //     to: 1,
-        //   }
-        // ],
-          // type: 'category',
-          // grid: {
-          //   columns: [{
-          //     title: {
-          //       text: 'Threads'
-          //     },
-              // categories: ['Thread 1', 'Thread 2', 'Thread 3']
-          //   }]
-          // },
-          // categories: ['State A', 'State B']
+       
         },
         plotOptions: {
           gantt: {
-      //       barHeight: 20, // Set the height of the bars here
-      // dataLabels: {
-      //   style: {
-      //     fontSize: '12px', // Set the font size of the data labels here
-      //     lineHeight: '20px' // Set the line height of the data labels here
-      //   }
-      // }
-            // groupPadding: 0.1,
-            // pointPadding: 0.1
           },
-          // series: {
-          //   turboThreshold: 0
-          // },
-          // column: {
-          //   groupPadding: 0.3
-          // },
-          // row: {
-          //   groupPadding: 0.1
-          // }
         },
         series: data,
-        // [
-          
-          
-          
-          // {
-          // name: 'Thread 1',
-          // data: [
-          //   data[0],data[33]
-          //   {
-          //   name: 'Thread 1',
-          //   start: Date.UTC(2023, 4, 10, 12, 0),
-          //   end: Date.UTC(2023, 4, 10, 13, 0),
-          //   state:'A',
-          //   color:'black'
-          // }, {
-          //   name: 'Thread 1',
-          //   start: Date.UTC(2023, 4, 10, 13, 0),
-          //   end: Date.UTC(2023, 4, 10, 14, 0)
-          // }
-        // ],
-        // }, 
-        // {
-        //   // name: 'Thread 2',
-        //   data: [{
-        //     name: 'Thread 2',
-        //     start: Date.UTC(2023, 4, 10, 12, 30),
-        //     end: Date.UTC(2023, 4, 10, 13, 30)
-        //   }, {
-        //     name: 'Thread 2',
-        //     start: Date.UTC(2023, 4, 10, 13, 30),
-        //     end: Date.UTC(2023, 4, 10, 14, 30)
-        //   }]
-        //  }, {
-        //   // name: 'Thread 3',
-        //   data: [{
-        //     name: 'Thread 3',
-        //     start: Date.UTC(2023, 4, 10, 12,45),
-        //     end: Date.UTC(2023,4 ,10 ,13 ,45)
-        //   }, {
-        //     name: 'Thread 3',
-        //     start: Date.UTC(2023 ,4 ,10 ,13 ,45),
-        //     end: Date.UTC(2023 ,4 ,10 ,14 ,45)
-          // }
-        // ]
-        //  },]
         tooltip: {
           pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.state1}</b><br/>' +
             'Start: {point.start:%e. %b %Y}<br/>' +
@@ -226,31 +118,6 @@ const Charts = () => {
       };
       return options1;
     }
-
-    // const convertDate = (data) => {
-    //   var res = []
-    //   for(var datum of data){
-    //     // console.log(datum)
-    //     var dateString = datum.start+"";
-    //     datum.start = 0//Date.UTC(
-    //     //   dateString.substring(0, 4),
-    //     //   dateString.substring(5, 7) - 1,
-    //     //   dateString.substring(8, 10),
-    //     //   dateString.substring(11, 13),
-    //     //   dateString.substring(14, 16),
-    //     //   dateString.substring(17, 19));
-    //     //   dateString = datum.end+"";
-    //     datum.end = 10//Date.UTC(
-    //     //   dateString.substring(0, 4),
-    //     //   dateString.substring(5, 7) - 1,
-    //     //   dateString.substring(8, 10),
-    //     //   dateString.substring(11, 13),
-    //     //   dateString.substring(14, 16),
-    //     //   dateString.substring(17, 19));
-    //       res.push(datum)
-    //   }
-    //   return res;
-    // }
 
   return (
      <div>
