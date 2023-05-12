@@ -34,7 +34,7 @@ const Charts = () => {
     
       useEffect(() => {
         console.log("Entered chart component")
-        axios.get('http://3.93.246.151:8080').then(
+        axios.get('http://localhost:8080').then(
             response => {
                 setHeapData(response.data)
                 // console.log(heapData)
@@ -110,31 +110,13 @@ const Charts = () => {
       const options1 = {
         chart: {
           type: 'gantt',
-          height: 1000
+          height: 3000,
+          // width: 1000
         },
         title: {
           text: 'Gantt Chart'
         },
-        plotOptions: {
-          gantt: {
-            // milestone: {
-            //   marker: {
-            //     symbol: 'triangle'
-            //   }
-            // },
-            groupPadding: 0.1,
-            pointPadding: 0.1
-          },
-          series: {
-            turboThreshold: 0
-          },
-          // column: {
-          //   groupPadding: 0.3
-          // },
-          // row: {
-          //   groupPadding: 0.1
-          // }
-        },
+        
         // legend: {
         //   layout: 'vertical',
         //   align: 'right',
@@ -144,18 +126,19 @@ const Charts = () => {
           type: 'datetime'
         },
         yAxis: {
+          // rowHeight: 20,
           uniqueNames: true,
-          breaks: [{
-            breakSize: 0.5,
-            from: 0,
-            to: 0,
-          },
-          {
-            breakSize: 0.5,
-            from: 1,
-            to: 1,
-          }
-        ],
+        //   breaks: [{
+        //     breakSize: 0.5,
+        //     from: 0,
+        //     to: 0,
+        //   },
+        //   {
+        //     breakSize: 0.5,
+        //     from: 1,
+        //     to: 1,
+        //   }
+        // ],
           // type: 'category',
           // grid: {
           //   columns: [{
@@ -167,7 +150,29 @@ const Charts = () => {
           // },
           // categories: ['State A', 'State B']
         },
-        series: data.slice(0,15)
+        plotOptions: {
+          gantt: {
+      //       barHeight: 20, // Set the height of the bars here
+      // dataLabels: {
+      //   style: {
+      //     fontSize: '12px', // Set the font size of the data labels here
+      //     lineHeight: '20px' // Set the line height of the data labels here
+      //   }
+      // }
+            // groupPadding: 0.1,
+            // pointPadding: 0.1
+          },
+          // series: {
+          //   turboThreshold: 0
+          // },
+          // column: {
+          //   groupPadding: 0.3
+          // },
+          // row: {
+          //   groupPadding: 0.1
+          // }
+        },
+        series: data,
         // [
           
           
@@ -213,6 +218,11 @@ const Charts = () => {
           // }
         // ]
         //  },]
+        tooltip: {
+          pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.state1}</b><br/>' +
+            'Start: {point.start:%e. %b %Y}<br/>' +
+            'End: {point.end:%e. %b %Y}<br/>'
+        },
       };
       return options1;
     }
