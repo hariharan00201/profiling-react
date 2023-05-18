@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import HighchartsReact from "highcharts-react-official"
-import Highcharts, { color } from "highcharts"
+import Highcharts from "highcharts"
 import HighchartsGantt from 'highcharts/modules/gantt';
 import axios from 'axios';
 import GCSummary from './GCSummary';
@@ -22,7 +22,7 @@ const Charts = () => {
     
       useEffect(() => {
         console.log("Entered chart component")
-        axios.get('http://3.93.246.151:8080').then(
+        axios.get('http://3.93.246.151:8080/charts/'+window.localStorage.getItem("file")).then(
             response => {
                 setHeapData(response.data)
             }).catch(err => console.log(err));
@@ -93,7 +93,7 @@ const Charts = () => {
       const options1 = {
         chart: {
           type: 'gantt',
-          height: "250%",
+          height: data.length*60+"",
         },
         title: {
           text: 'Gantt Chart'
