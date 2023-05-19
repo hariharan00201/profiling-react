@@ -28,6 +28,7 @@ const Charts = () => {
             }).catch(err => console.log(err));
             
     },[]);
+    
 
     const getOptionsLocal = (arr,b,c,xname,yname) => {
         var temp = getValues(arr,b,c);
