@@ -94,7 +94,7 @@ const Charts = () => {
       const options1 = {
         chart: {
           type: 'gantt',
-          height: data.length*60+"",
+          height: data.length*20+"",
         },
         title: {
           text: 'Gantt Chart'
@@ -113,8 +113,9 @@ const Charts = () => {
         series: data,
         tooltip: {
           pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.state1}</b><br/>' +
-            'Start: {point.start:%e. %b %Y}<br/>' +
-            'End: {point.end:%e. %b %Y}<br/>'
+            'Start: {point.start:%e. %b %Y %I:%M:%S %p}<br/>' +
+            'End: {point.end:%e. %b %Y %I:%M:%S %p}<br/>' +
+            'All Data of Event: {point.tooltip}<br/>'
         },
       };
       return options1;
