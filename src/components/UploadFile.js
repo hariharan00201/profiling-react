@@ -13,7 +13,7 @@ const UploadFile = () => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('file', selectedFile);
-    axios.post('http://3.93.246.151:8080/upload-file', formData).then((response) => {
+    axios.post('http://localhost:8080/upload-file', formData).then((response) => {
       console.log(response.data);
       window.localStorage.setItem("file",response.data);
       window.location = "/charts"
