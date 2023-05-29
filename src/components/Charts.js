@@ -22,7 +22,7 @@ const Charts = () => {
     
       useEffect(() => {
         console.log("Entered chart component")
-        axios.get('http://localhost:8080/charts/'+window.localStorage.getItem("file")).then(
+        axios.get('http://3.93.246.151:8080/charts/'+window.localStorage.getItem("file")).then(
             response => {
                 setHeapData(response.data)
             }).catch(err => console.log(err));
